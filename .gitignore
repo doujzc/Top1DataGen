@@ -1,0 +1,17 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.coverage
+htmlcov/
+
+# Secrets are local-only. Commit credentials.example, never real credentials.
+credentials
+credentials.*
+!credentials.example
+
+# Only reviewed/versioned datasets may be committed deliberately.
+data_top1/generated/
+raw/
+runs/

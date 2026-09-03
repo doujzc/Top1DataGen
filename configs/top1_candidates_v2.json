@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "routing_mode": "candidate_name_top1",
+  "candidates": [
+    "StockAdvice",
+    "StockOther",
+    "StockQuery",
+    "ProductGeneral",
+    "ProductEcommerce",
+    "ChitChat",
+    "NoAvailable",
+    "MedicalQuestionAnswer",
+    "CivicBoundHelper",
+    "TicketService",
+    "TravelGuide",
+    "BeautyFashion",
+    "FoodDiscovery",
+    "LifeExperience",
+    "LifeKnowledgeQA"
+  ]
+}

@@ -1,0 +1,584 @@
+{
+  "schema_version": 1,
+  "pipeline_version": "top1_controlled_multiturn_v2",
+  "seed": 20260824,
+  "target_count": 1500,
+  "single_turn_per_candidate": 30,
+  "intent_change_per_pair": 3,
+  "multi_turn_user_counts": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "require_no_personal_data": true,
+  "require_strict_dialogue_quality": true,
+  "require_plan_fidelity": true,
+  "require_observed_axis_match": true,
+  "require_empty_judgment_issues": true,
+  "record_implementation_hashes": true,
+  "single_turn_axis_confusions": {
+    "StockAdvice": {
+      "future_direction": ["StockQuery", "StockOther"],
+      "target_recommendation": ["StockOther", "StockQuery"],
+      "buy_sell_timing": ["StockQuery", "StockOther"],
+      "position_sizing": ["StockOther", "StockQuery"],
+      "trading_strategy": ["StockOther", "StockQuery"]
+    },
+    "StockOther": {
+      "stable_entity_company_operations": ["StockQuery", "StockAdvice"],
+      "stable_entity_governance_and_equity": ["StockQuery", "StockAdvice"],
+      "fund_etf_reit": ["StockAdvice", "StockQuery"],
+      "bonds_fx_metals": ["StockAdvice", "StockQuery"],
+      "personal_holdings_and_account": ["StockAdvice", "StockQuery"]
+    },
+    "StockQuery": {
+      "current_price_and_change": ["StockAdvice", "StockOther"],
+      "historical_kline": ["StockAdvice", "StockOther"],
+      "market_index": ["StockAdvice", "StockOther"],
+      "security_profile_and_code": ["StockOther"],
+      "announced_event_reaction": ["StockOther", "StockAdvice"],
+      "public_market_metrics": ["StockOther", "StockAdvice"],
+      "market_tools_and_brokerage_access": ["StockOther", "ProductGeneral"]
+    },
+    "ProductGeneral": {
+      "vehicle_or_housing": ["ProductEcommerce", "LifeExperience"],
+      "service_or_software": ["ProductEcommerce", "NoAvailable"],
+      "rights_or_license": ["ProductEcommerce", "NoAvailable"],
+      "custom_engineering": ["ProductEcommerce", "LifeExperience"],
+      "owned_product_malfunction_and_troubleshooting": ["LifeExperience", "ProductEcommerce"],
+      "authenticity_and_provenance_check": ["ProductEcommerce"],
+      "after_sales_and_order": ["ProductEcommerce", "NoAvailable"]
+    },
+    "ProductEcommerce": {
+      "retail_product_search_and_availability": ["BeautyFashion", "FoodDiscovery", "ProductGeneral"],
+      "retail_brand_or_model_recommendation": ["LifeExperience", "ProductGeneral"],
+      "retail_price_and_promotion": ["BeautyFashion", "FoodDiscovery", "ProductGeneral"],
+      "retail_product_comparison": ["LifeExperience", "ProductGeneral"],
+      "retail_suitability_and_specs": ["LifeExperience", "ProductGeneral"],
+      "retail_purchase_and_order": ["BeautyFashion", "FoodDiscovery", "ProductGeneral"],
+      "boundary_eligible_standardized_goods": ["ProductGeneral"]
+    },
+    "ChitChat": {
+      "current_turn_greeting_or_wakeup": ["NoAvailable"],
+      "self_contained_appreciation_or_farewell": ["NoAvailable"],
+      "user_emotion_sharing": ["MedicalQuestionAnswer"],
+      "assistant_identity_and_capability_chat": ["NoAvailable"],
+      "specific_open_social_topic": ["LifeKnowledgeQA"],
+      "user_hobby_or_leisure_sharing": ["LifeExperience"]
+    },
+    "NoAvailable": {
+      "writing_or_translation": ["TravelGuide", "CivicBoundHelper", "MedicalQuestionAnswer"],
+      "image_chart_or_media": ["LifeKnowledgeQA", "TravelGuide", "MedicalQuestionAnswer"],
+      "programming_or_technical_task": ["LifeKnowledgeQA", "ProductGeneral"],
+      "weather_or_realtime_status": ["TravelGuide", "TicketService", "LifeKnowledgeQA"],
+      "legal_or_academic_request": ["CivicBoundHelper", "LifeKnowledgeQA"],
+      "unsupported_external_execution": ["MedicalQuestionAnswer", "TravelGuide"],
+      "health_diagnosis_prescription_or_emergency": ["MedicalQuestionAnswer"],
+      "insufficient_or_unintelligible_input_without_anaphora": ["ChitChat"]
+    },
+    "MedicalQuestionAnswer": {
+      "symptom_self_check": ["NoAvailable", "LifeKnowledgeQA"],
+      "medication_safety": ["NoAvailable", "BeautyFashion"],
+      "traditional_chinese_medicine": ["NoAvailable", "LifeKnowledgeQA"],
+      "medical_report_interpretation": ["NoAvailable", "LifeKnowledgeQA"],
+      "hospital_recommendation": ["NoAvailable"],
+      "department_recommendation": ["NoAvailable"],
+      "disease_related_diet": ["FoodDiscovery", "NoAvailable"]
+    },
+    "CivicBoundHelper": {
+      "insurance_policy": ["NoAvailable"],
+      "subsidy_policy": ["ProductEcommerce", "NoAvailable"],
+      "real_estate_policy": ["ProductGeneral", "NoAvailable"],
+      "provident_fund_policy": ["ProductGeneral", "NoAvailable"],
+      "social_security_policy": ["NoAvailable"],
+      "tax_policy": ["StockOther", "NoAvailable"],
+      "medical_insurance_policy": ["MedicalQuestionAnswer", "NoAvailable"],
+      "official_charter": ["NoAvailable"]
+    },
+    "TicketService": {
+      "rail_schedule_search": ["TravelGuide", "NoAvailable"],
+      "flight_schedule_search": ["TravelGuide", "NoAvailable"],
+      "coach_schedule_search": ["TravelGuide", "NoAvailable"],
+      "fare_comparison": ["TravelGuide"],
+      "availability_for_identified_service": ["NoAvailable", "TravelGuide"],
+      "vehicle_or_flight_details": ["ProductGeneral", "TravelGuide"],
+      "ticket_purchase": ["NoAvailable", "ProductEcommerce"]
+    },
+    "TravelGuide": {
+      "itinerary_planning": ["TicketService", "NoAvailable", "FoodDiscovery"],
+      "attraction_pitfalls": ["LifeExperience"],
+      "accommodation_area": ["NoAvailable"],
+      "photo_location": ["NoAvailable"],
+      "family_trip": ["LifeExperience"],
+      "holiday_off_peak": ["TicketService", "NoAvailable"],
+      "local_transport_experience": ["TicketService"]
+    },
+    "BeautyFashion": {
+      "skin_care_selection": ["ProductEcommerce", "MedicalQuestionAnswer"],
+      "makeup_steps": ["ProductEcommerce", "LifeExperience"],
+      "color_and_shade": ["ProductEcommerce", "LifeKnowledgeQA"],
+      "outfit_formula": ["ProductEcommerce", "LifeExperience"],
+      "body_shape_styling": ["ProductEcommerce"],
+      "sensitive_skin_care": ["MedicalQuestionAnswer", "ProductEcommerce"],
+      "personal_image": ["LifeExperience", "ProductEcommerce"]
+    },
+    "FoodDiscovery": {
+      "restaurant_discovery": ["TravelGuide", "NoAvailable"],
+      "recipe_method": ["LifeKnowledgeQA", "NoAvailable"],
+      "ingredient_selection": ["LifeKnowledgeQA", "ProductEcommerce"],
+      "fitness_diet": ["MedicalQuestionAnswer"],
+      "local_snacks": ["TravelGuide", "ProductEcommerce"],
+      "daily_meal_pairing": ["MedicalQuestionAnswer"]
+    },
+    "LifeExperience": {
+      "renovation_pitfalls": ["ProductGeneral", "ProductEcommerce"],
+      "home_appliance_and_digital_selection_experience": ["ProductEcommerce"],
+      "routine_home_appliance_use_without_fault": ["ProductGeneral", "LifeKnowledgeQA"],
+      "pet_care": ["NoAvailable", "LifeKnowledgeQA"],
+      "parenting_practice": ["MedicalQuestionAnswer", "TravelGuide"],
+      "storage_and_cleaning": ["LifeKnowledgeQA"],
+      "digital_home_setup_and_interoperation_without_fault": ["ProductGeneral", "NoAvailable"],
+      "household_upkeep_without_owned_product_fault": ["ProductGeneral", "LifeKnowledgeQA"]
+    },
+    "LifeKnowledgeQA": {
+      "household_safety": ["LifeExperience", "MedicalQuestionAnswer"],
+      "everyday_ingredients": ["FoodDiscovery"],
+      "daily_physics": ["LifeExperience", "NoAvailable"],
+      "materials_and_chemistry": ["LifeExperience", "NoAvailable"],
+      "appliance_principles": ["LifeExperience", "ProductGeneral"],
+      "nonprofessional_interest_science": ["ChitChat", "NoAvailable"]
+    }
+  },
+  "content_axes": {
+    "StockAdvice": [
+      "future_direction",
+      "target_recommendation",
+      "buy_sell_timing",
+      "position_sizing",
+      "trading_strategy"
+    ],
+    "StockOther": [
+      "stable_entity_company_operations",
+      "stable_entity_governance_and_equity",
+      "fund_etf_reit",
+      "bonds_fx_metals",
+      "personal_holdings_and_account"
+    ],
+    "StockQuery": [
+      "current_price_and_change",
+      "historical_kline",
+      "market_index",
+      "security_profile_and_code",
+      "announced_event_reaction",
+      "public_market_metrics",
+      "market_tools_and_brokerage_access"
+    ],
+    "ProductGeneral": [
+      "vehicle_or_housing",
+      "service_or_software",
+      "rights_or_license",
+      "custom_engineering",
+      "owned_product_malfunction_and_troubleshooting",
+      "authenticity_and_provenance_check",
+      "after_sales_and_order"
+    ],
+    "ProductEcommerce": [
+      "retail_product_search_and_availability",
+      "retail_brand_or_model_recommendation",
+      "retail_price_and_promotion",
+      "retail_product_comparison",
+      "retail_suitability_and_specs",
+      "retail_purchase_and_order",
+      "boundary_eligible_standardized_goods"
+    ],
+    "ChitChat": [
+      "current_turn_greeting_or_wakeup",
+      "self_contained_appreciation_or_farewell",
+      "user_emotion_sharing",
+      "assistant_identity_and_capability_chat",
+      "specific_open_social_topic",
+      "user_hobby_or_leisure_sharing"
+    ],
+    "NoAvailable": [
+      "writing_or_translation",
+      "image_chart_or_media",
+      "programming_or_technical_task",
+      "weather_or_realtime_status",
+      "legal_or_academic_request",
+      "unsupported_external_execution",
+      "health_diagnosis_prescription_or_emergency",
+      "insufficient_or_unintelligible_input_without_anaphora"
+    ],
+    "MedicalQuestionAnswer": [
+      "symptom_self_check",
+      "medication_safety",
+      "traditional_chinese_medicine",
+      "medical_report_interpretation",
+      "hospital_recommendation",
+      "department_recommendation",
+      "disease_related_diet"
+    ],
+    "CivicBoundHelper": [
+      "insurance_policy",
+      "subsidy_policy",
+      "real_estate_policy",
+      "provident_fund_policy",
+      "social_security_policy",
+      "tax_policy",
+      "medical_insurance_policy",
+      "official_charter"
+    ],
+    "TicketService": [
+      "rail_schedule_search",
+      "flight_schedule_search",
+      "coach_schedule_search",
+      "fare_comparison",
+      "availability_for_identified_service",
+      "vehicle_or_flight_details",
+      "ticket_purchase"
+    ],
+    "TravelGuide": [
+      "itinerary_planning",
+      "attraction_pitfalls",
+      "accommodation_area",
+      "photo_location",
+      "family_trip",
+      "holiday_off_peak",
+      "local_transport_experience"
+    ],
+    "BeautyFashion": [
+      "skin_care_selection",
+      "makeup_steps",
+      "color_and_shade",
+      "outfit_formula",
+      "body_shape_styling",
+      "sensitive_skin_care",
+      "personal_image"
+    ],
+    "FoodDiscovery": [
+      "restaurant_discovery",
+      "recipe_method",
+      "ingredient_selection",
+      "fitness_diet",
+      "local_snacks",
+      "daily_meal_pairing"
+    ],
+    "LifeExperience": [
+      "renovation_pitfalls",
+      "home_appliance_and_digital_selection_experience",
+      "routine_home_appliance_use_without_fault",
+      "pet_care",
+      "parenting_practice",
+      "storage_and_cleaning",
+      "digital_home_setup_and_interoperation_without_fault",
+      "household_upkeep_without_owned_product_fault"
+    ],
+    "LifeKnowledgeQA": [
+      "household_safety",
+      "everyday_ingredients",
+      "daily_physics",
+      "materials_and_chemistry",
+      "appliance_principles",
+      "nonprofessional_interest_science"
+    ]
+  },
+  "content_axis_definitions": {
+    "StockAdvice": {
+      "future_direction": "最终主请求只是判断已给股票、指数或板块未来涨跌与走势；若同时要求推荐标的、买卖动作、仓位或完整方案，按 priority 选择更高轴。",
+      "target_recommendation": "最终主交付物是筛选或推荐值得关注、建仓的股票标的；既定标的的时点、仓位和单纯方向判断不属于本轴。",
+      "buy_sell_timing": "最终主交付物是既定标的何时买入、卖出、加仓或减仓；明确要求投入比例时归 position_sizing，要求多环节规则时归 trading_strategy。",
+      "position_sizing": "最终主交付物是总仓位、单标的占比、投入金额或分批数量；不以未来方向或止损成本基准充当仓位问题，完整策略优先。",
+      "trading_strategy": "最终主交付物是同时包含入场、退出、止盈止损或风险纪律的完整交易规则；单一预测、标的、时点或仓位请求归对应 sibling 轴。"
+    },
+    "StockOther": {
+      "stable_entity_company_operations": "最终主请求是分析同一明确公司主体的经营、财务、主营业务或业绩原因；纯检索公开股东结构和行情事实归 StockQuery，治理影响归 governance 轴，且不得切换实体、市场或业务。",
+      "stable_entity_governance_and_equity": "最终主请求是解释同一公司控制权、质押、股权变动、董事会或治理影响；只查询已披露股东名单、持股比例或股东人数归 StockQuery.security_profile_and_code，经营分析归 operations 轴。",
+      "fund_etf_reit": "最终主请求是基金、ETF 或 REIT 的产品研究、比较、选择、历史表现、计算或交易事务；个股事实归 StockQuery，股票买卖建议归 StockAdvice，跨实物贵金属比较归 bonds_fx_metals。",
+      "bonds_fx_metals": "最终主请求是债券、汇率、外汇、黄金或贵金属的行情、知识、比较、选择或交易；只研究基金产品本身归 fund_etf_reit，股票任务不属于本轴。",
+      "personal_holdings_and_account": "最终主请求是用户既有持仓、交易计划、成交记录、账户状态或账户内占比盈亏计算；券商选择和开户服务归 StockQuery.market_tools_and_brokerage_access，股票未来买卖建议归 StockAdvice。"
+    },
+    "StockQuery": {
+      "current_price_and_change": "最终主交付物是个股或证券当前、最新或当日价格与涨跌；指数对象归 market_index，历史区间归 historical_kline，公告后反应归 announced_event_reaction。",
+      "historical_kline": "最终主交付物是个股或证券已经发生的历史 K 线、价格、成交量或区间走势；指数历史归 market_index，事件窗口反应归 announced_event_reaction，未来判断归 StockAdvice。",
+      "market_index": "最终主交付物是大盘或行业指数的当前/历史点位、涨跌、成交或组成事实；个股查询归其它 StockQuery 轴，政策原文解读不属于本轴。",
+      "security_profile_and_code": "最终主交付物是证券代码、上市市场、行业、基础档案，或已公开披露的股东名单、持股比例、股东人数与结构事实；控制权和治理影响分析归 StockOther，估值行情指标归 public_market_metrics。",
+      "announced_event_reaction": "最终主交付物是已公布事件发生后已经出现的价格、成交、资金或同板块市场反应；公司经营内容归 StockOther，未来影响预测归 StockAdvice。",
+      "public_market_metrics": "最终主交付物是个股证券的市盈率、市净率、股息率、换手率、振幅等公开行情指标；简单价格/K线、指数、公开股东结构和私人账户分别归对应 sibling 轴。",
+      "market_tools_and_brokerage_access": "最终主交付物是行情软件功能与数据入口、券商选择、开户流程、交易通道或相关服务事实；不含个人既有持仓账户、公司治理研究、软件编程或软件故障售后。"
+    },
+    "ProductGeneral": {
+      "vehicle_or_housing": "最终主交付物是汽车、房屋等非普通电商对象的购买前选择、价格适用性或正常使用信息；故障根因归 owned_product_malfunction，售后办理归 after_sales_and_order，定制工程归 custom_engineering。",
+      "service_or_software": "最终主交付物是非实体服务或软件的选择、授权、功能、使用和技术异常咨询；退款续费办理归 after_sales_and_order，版权许可归 rights_or_license，代写代码归 NoAvailable。",
+      "rights_or_license": "最终主交付物是会员、电子版权、许可或其它非交通票务权益的范围、取得、有效性与转让；订单售后流程优先归 after_sales_and_order，软件使用归 service_or_software。",
+      "custom_engineering": "最终主交付物是全屋定制、装修工程或定制制造的质量、验收、责任与质保认定；具体售后办理优先归 after_sales_and_order，普通商品故障归 owned_product_malfunction，日常装修经验归 LifeExperience。",
+      "owned_product_malfunction_and_troubleshooting": "最终主交付物是定位一件已购标准化实体商品或车辆设备的异常、失效、错误码或故障根因并排查；定制工程质量归 custom_engineering，退换维修流程归 after_sales_and_order，正常使用与购买推荐归对应垂类。",
+      "authenticity_and_provenance_check": "最终主交付物是核验一件已识别、已购或已收标准化商品的真伪、来源或可验证凭据，并说明不补造鉴定结论的核验路径；若主动作是退款、退货、投诉或其它售后办理，按更高 priority 归 after_sales_and_order，购买前的平台搜索选择归 ProductEcommerce，法律鉴定或文书交付归 NoAvailable。",
+      "after_sales_and_order": "最终主交付物是订单、物流、退款、退换、质保、维修受理、所需凭证或售后渠道流程；该流程优先于商品、软件、权益和车辆对象轴，但代写或发送工单归 NoAvailable。"
+    },
+    "ProductEcommerce": {
+      "retail_product_search_and_availability": "最终主交付物是在普通零售平台检索一件标准化实物商品，或查询其是否上架、可搜到和有无库存；若主要询问价格优惠、推荐选择、已识别商品比较、规格适用性或直接购买，按 priority 使用对应轴。美妆服饰和包装食品的纯平台搜索与库存同样属于本轴。",
+      "retail_brand_or_model_recommendation": "最终主交付物是从尚未确定的普通零售商品集合中推荐具体品牌、型号或 SKU；明确比较两个以上已识别商品归 retail_product_comparison，单品规格判断归 retail_suitability_and_specs，价格优惠与下单按更高 priority 轴。护肤彩妆服饰的肤质、妆效、风格或合身选品，以及食品食材的口味、配料、营养或品质选品，即使出现具体品牌或 SKU 也归 BeautyFashion 或 FoodDiscovery；只有明确平台/SKU 搜索库存、价格优惠或下单才转入 ProductEcommerce。不绑定具体品牌型号的家电数码选用经验归 LifeExperience，具体品牌型号推荐归本轴。",
+      "retail_price_and_promotion": "最终主交付物是查询已识别标准化实物商品的价格、优惠、券或促销信息；预算只是推荐约束时仍归 retail_brand_or_model_recommendation，两个商品的非价格属性比较归 retail_product_comparison，明确下单按更高 priority 归 retail_purchase_and_order。美妆服饰和包装食品的纯平台价格优惠也属于本轴。",
+      "retail_product_comparison": "最终主交付物是比较两个以上已经明确的普通零售商品、品牌型号或 SKU 的非价格属性并作取舍；从开放集合推荐归 retail_brand_or_model_recommendation，单个商品判断归 retail_suitability_and_specs，价格优惠和下单按更高 priority 轴。护肤彩妆服饰的肤质、妆效、风格、合身属性比较，以及食品食材或包装食品的口味、配料、营养、品质属性比较，即使对象是具体品牌或 SKU 也归 BeautyFashion 或 FoodDiscovery；明确平台/SKU 搜索库存、价格优惠或下单除外。具体家电数码型号间比较归本轴。",
+      "retail_suitability_and_specs": "最终主交付物是查询或判断一个已识别标准化实物商品的规格、性能或对明确使用场景的适用性；开放式品牌型号推荐和多商品比较归对应 sibling 轴。护肤彩妆服饰基于肤质、妆效、风格或合身性的适配判断，以及食品食材或包装食品的口味、配料、营养和品质判断，即使对象是具体品牌或 SKU 也归 BeautyFashion 或 FoodDiscovery；明确平台/SKU 搜索库存、价格优惠或下单除外。泛化家电数码选用经验归 LifeExperience，具体型号的规格适用性归本轴。",
+      "retail_purchase_and_order": "最终主交付物是购买、加入购物车、预订或下单一件普通零售平台可提供的标准化实物商品；该实际交易动作高于搜索库存、推荐、价格、比较和适用性，汽车房屋、服务软件、版权许可、定制工程及交通票务不属于本轴。美妆服饰和包装食品的纯平台下单属于本轴。",
+      "boundary_eligible_standardized_goods": "最终对象必须是现成、量产、规格固定且可直接发货的标准化实物，并以自然的购买前可购性、推荐或适用性请求体现其靠近非普通消费对象的边界；不得询问“是否属于普通电商标准商品”“该归哪类”“是否在能力边界内”等元分类问题。按尺寸制作或需要上门测量、设计、生产、安装的窗帘、柜体等定制工程，以及汽车房屋等登记资产、服务软件、会员版权等权利许可，均不得作为本轴的 ProductEcommerce 正例。"
+    },
+    "ChitChat": {
+      "current_turn_greeting_or_wakeup": "最后一条 user 的主动作只是问候、招呼或唤醒；若同句还有情绪、身份、兴趣或具体聊天问题，按 priority 使用更高轴。",
+      "self_contained_appreciation_or_farewell": "最后一条 user 的主动作是无需缺失历史即可成立的感谢、结束或告别；若同时表达需回应的情绪或问题，按 priority 使用更高轴。",
+      "user_emotion_sharing": "最终主请求是表达用户自己的情绪并寻求陪伴、共情或倾听；医疗处置、垂类建议和明确内容交付不属于本轴。",
+      "assistant_identity_and_capability_chat": "最终主请求是聊天式询问 AI 的身份、能力、意识或交互方式；执行未支持任务和虚构助手个人生活不属于本轴。",
+      "specific_open_social_topic": "最终主请求是围绕一个明确日常或思辨话题交换看法；事实知识问答、内容交付、情绪安抚和详细兴趣指导不属于本轴。",
+      "user_hobby_or_leisure_sharing": "最终主请求是分享用户自己的兴趣、进展或体验并寻求社交回应；若要求配方、养护、技术方案或商品推荐，归相应垂类而非本轴。"
+    },
+    "NoAvailable": {
+      "writing_or_translation": "最终主交付物是创作、改写、润色或翻译文本，因此即使主题属于其它垂类也优先按本轴；法律学术文书、程序代码和真实外发动作按 priority 使用更高轴。",
+      "image_chart_or_media": "最终主交付物是生成、编辑或导出图片、图表、音频、视频等媒体，因此主题垂类不能覆盖该动作；程序实现、真实外部执行和更高 priority 轴优先。",
+      "programming_or_technical_task": "最终主交付物是编写、修改、调试代码或完成具体技术实现；不因代码主题改投垂类，真实外部执行及更高 priority 轴优先。",
+      "weather_or_realtime_status": "最终主交付物是当前或未来天气、交通、晚点等未支持动态状态；受支持的股票行情和交通票查询不属于本轴，媒体/代码/外部执行等明确交付物按 priority 决定。",
+      "legal_or_academic_request": "最终主交付物是法律文书或法律意见、论文级研究、严肃学术任务或专业考试答案；政务政策信息和轻量生活科普不属于本轴，健康危急任务优先。",
+      "unsupported_external_execution": "最终主交付物是发送消息、代办、挂号缴费、买药、订房等未支持的真实外部动作；明确支持的普通商品下单和交通票购买除外，健康急救/确诊/处方按更高轴。",
+      "health_diagnosis_prescription_or_emergency": "最终主请求是要求确定疾病诊断、开具或调整处方，或对危急重症进行实时急救处置；一般症状分析、药物安全和非紧急就医建议归 MedicalQuestionAnswer。",
+      "insufficient_or_unintelligible_input_without_anaphora": "输入自身是乱码、无意义，或仅含不带指代的泛化求助而无法识别动作/对象；不得用“那个”“刚才”“继续”“这趟”等缺失先行词制造不足，动作明确但只缺参数时归实际轴。"
+    },
+    "MedicalQuestionAnswer": {
+      "symptom_self_check": "最终主交付物是对个人症状的常见可能性、风险和一般处置方向分析；确定诊断、处方和急救归 NoAvailable.health_diagnosis_prescription_or_emergency，科室医院等更具体动作按 priority 优先。",
+      "medication_safety": "最终主交付物是药物用途、用法注意、相互作用、禁忌或不良反应信息；要求开药、停换药决定或处方归 NoAvailable，普通疾病饮食和症状分析归对应 sibling 轴。",
+      "traditional_chinese_medicine": "最终主交付物是中医角度的一般辨证、生活和饮食调理信息；确定诊断或中药处方归 NoAvailable，非中医症状分析归 symptom_self_check。",
+      "medical_report_interpretation": "最终主交付物是解释个人体检、化验或检查报告指标与一般风险；确定诊断归 NoAvailable，基于已知疾病的饮食请求归 disease_related_diet。",
+      "hospital_recommendation": "最终主交付物是按症状、位置或就医需求选择医院或医院类型；该动作高于科室和症状分析，但实时挂号、缴费和急救执行不属于本轴。",
+      "department_recommendation": "最终主交付物是根据症状选择首诊科室；若同时要求具体医院按 priority 归 hospital_recommendation，确诊和挂号执行不属于本轴。",
+      "disease_related_diet": "最终主交付物是围绕已知疾病、症状风险或康复的饮食建议；普通减脂增肌、日常配餐和菜谱归 FoodDiscovery，处方级营养治疗不属于本轴。"
+    },
+    "CivicBoundHelper": {
+      "insurance_policy": "最终主请求是解读保险制度或大病保险等非基本医保待遇的政策、发文或章程；基本医保、社保其它险种和商业投保推荐不属于本轴。",
+      "subsidy_policy": "最终主请求是解读政府补贴资格、标准、申请或资金流程；税收扣除、公积金、普通商品优惠和官方组织章程不属于本轴。",
+      "real_estate_policy": "最终主请求是解读住房交易、产权、租赁或不动产管理政策；公积金、税务计算、补贴和装修经验归对应 sibling 类。",
+      "provident_fund_policy": "最终主请求是解读公积金缴存、提取、贷款或账户政策；普通住房政策、税务、社保和商业贷款建议不属于本轴。",
+      "social_security_policy": "最终主请求是解读养老、失业、工伤、生育等社保政策；基本医保待遇、税务和个人证券账户不属于本轴。",
+      "tax_policy": "最终主请求是解读个税、契税及其它税收政策、扣除和申报规则；补贴、公积金、住房管理和法律文书代写归对应轴。",
+      "medical_insurance_policy": "最终主请求是解读基本医保参保、报销、起付线、限额和待遇政策；个人疾病咨询、商业保险和挂号缴费不属于本轴。",
+      "official_charter": "最终主交付物是解读政务或官方组织章程中的组织、权限和程序；必须有“章程”语义，并按 priority 高于同领域普通政策，不能用一般发文、公司章程或补贴流程充当。"
+    },
+    "TicketService": {
+      "rail_schedule_search": "最终主交付物是按路线、日期和时段搜索或列出火车/高铁可选车次；若主要比较价格、查询唯一车次余票/设施或直接购买，按 priority 使用对应更高轴。",
+      "flight_schedule_search": "最终主交付物是按路线、日期和时段搜索或列出可选航班；若主要比较价格、查询唯一航班余票/机型或直接购买，按 priority 使用对应更高轴。",
+      "coach_schedule_search": "最终主交付物是按路线、日期和时段搜索或列出长途汽车班次；若主要比较价格、查询唯一班次余票或直接购买，按 priority 使用对应更高轴。",
+      "fare_comparison": "最终主交付物是比较两个以上可选车次、航班、班次或日期的票价，或找最低价方案；单一已识别服务的余票归 availability，列时刻表归模式 schedule 轴，购买优先。",
+      "availability_for_identified_service": "最终主交付物是查询一个由日期与车次/航班号等信息唯一确定的交通服务是否有票及座席余量；未唯一识别的“这趟”无效，多方案搜索归 schedule，购买优先。",
+      "vehicle_or_flight_details": "最终主交付物是查询一个已唯一识别服务的车型、机型、舱厢或设施；若主要问余票、比价或购买，按 priority 使用对应轴，缺失车次/航班先行项不得生成。",
+      "ticket_purchase": "最终主交付物是购买、预订或下单火车、汽车或飞机票；购买动作高于时刻、比价、余票和载具详情，酒店预订及其它代办不属于本轴。"
+    },
+    "TravelGuide": {
+      "itinerary_planning": "最终主交付物是目的地内多日或多点的完整行程顺序与节奏；即使包含亲子、住宿、交通、错峰或拍照约束，完整排程仍按最高 priority 归本轴。",
+      "attraction_pitfalls": "最终主交付物是景点体验、排队与避坑经验；完整行程、亲子适配、住宿交通等更高 priority 主动作优先，且不得让 assistant 断言无来源实时运营事实。",
+      "accommodation_area": "最终主交付物是选择住宿区域或街区；完整行程和亲子路线优先，实时酒店价格、余房和预订执行不属于本轴。",
+      "photo_location": "最终主交付物是旅行拍照位置、角度或经验时段；只要主请求是完整行程、家庭适配、住宿交通、错峰或避坑，按 priority 使用更高轴。",
+      "family_trip": "最终主交付物是老人或儿童的景点适配、体力节奏和亲子旅行经验；若要求完整多日排程归 itinerary_planning，医疗诊疗和普通育儿不属于本轴。",
+      "holiday_off_peak": "最终主交付物是节假日错峰和避开人流的经验性时段安排；完整行程、家庭适配、住宿交通等更高 priority 请求优先，不含实时客流。",
+      "local_transport_experience": "最终主交付物是目的地内地铁、公交、打车等组合与移动经验；完整行程、家庭适配和住宿区域优先，城际票务及实时班次不属于本轴。"
+    },
+    "BeautyFashion": {
+      "skin_care_selection": "最终主交付物是按一般肤质和目标选择日常护肤品类型、成分或顺序；敏感泛红护理按更高 priority 归 sensitive_skin_care，皮肤病诊断用药和平台优惠不属于本轴。",
+      "makeup_steps": "最终主交付物是底妆、眼妆等化妆步骤、顺序和手法；整体形象规划优先，单纯色号归 color_and_shade，护肤治疗不属于本轴。",
+      "color_and_shade": "最终主交付物是按肤色和风格选择口红、粉底等颜色或色号方向；整体形象、完整化妆步骤按 priority 优先，穿搭和平台下单不属于本轴。",
+      "outfit_formula": "最终主交付物是服装单品间的比例、层次和配色公式；若主要依据身材修饰归更高 priority 的 body_shape_styling，整体形象和商品库存不属于本轴。",
+      "body_shape_styling": "最终主交付物是针对身材特点提供显高、显瘦或比例修饰经验；整体形象优先，非身材导向的单品公式归 outfit_formula，疾病减重不属于本轴。",
+      "sensitive_skin_care": "最终主交付物是非疾病性的敏感、泛红或刺激期温和护理；该轴高于一般 skin_care_selection，皮肤病确诊和药物处理归医疗/NoAvailable 边界。",
+      "personal_image": "最终主交付物是综合脸型、发型、妆容与穿搭规划整体个人形象；该整合任务高于单一护肤、妆容、色号和穿搭 sibling 轴，医美治疗不属于本轴。"
+    },
+    "FoodDiscovery": {
+      "restaurant_discovery": "最终主交付物是按地点、菜系、环境和用餐需求发现餐厅或探店避雷；明确地区特色小吃按更高 priority 归 local_snacks，实时订座和整体旅行不属于本轴。",
+      "recipe_method": "最终主交付物是一道菜或食品的烹饪步骤、火候和做法；健身饮食、整套餐次、地区小吃发现和餐厅选择按 priority 优先，单纯挑食材归 ingredient_selection。",
+      "ingredient_selection": "最终主交付物是食材新鲜度、品质和适用做法的挑选经验；若主要要求成菜步骤归 recipe_method，平台优惠、成分原理和疾病饮食不属于本轴。",
+      "fitness_diet": "最终主交付物是围绕一般减脂、增肌或运动目标的饮食安排；该目标高于普通每日配餐，糖尿病等疾病饮食归 MedicalQuestionAnswer。",
+      "local_snacks": "最终主交付物是发现、比较或了解具有明确地区属性的特色小吃与当地吃法；该地域对象高于一般餐厅发现，不得用无地域的锅气、普通菜谱或食品科学充当。",
+      "daily_meal_pairing": "最终主交付物是普通早餐、午晚餐、一日或一周的多餐搭配；健身目标优先，单道菜步骤、疾病营养和实时外卖不属于本轴。"
+    },
+    "LifeExperience": {
+      "renovation_pitfalls": "最终主交付物是装修流程、材料衔接和施工避坑经验；已完工定制工程缺陷、法律纠纷和商品下单不属于本轴。",
+      "home_appliance_and_digital_selection_experience": "最终主交付物是不绑定具体品牌、型号、SKU、平台、价格、优惠、库存或下单的家电、数码及智能家居类别选择、功能参数取舍、场景适配和生活化避坑经验；具体品牌型号推荐或平台交易归 ProductEcommerce，已购设备异常、失效和错误码归 ProductGeneral。",
+      "routine_home_appliance_use_without_fault": "最终主交付物是家电正常状态下的设置、节能和日常使用经验；异常、失效、错误码、维修和型号购买比较不属于本轴。",
+      "pet_care": "最终主交付物是健康宠物的喂养、清洁、梳理和日常训练经验；宠物疾病诊疗、药物和用品实时下单不属于本轴。",
+      "parenting_practice": "最终主交付物是育儿睡眠、喂养、行为和日常带娃经验；儿童疾病诊断、处方和商品价格推荐不属于本轴。",
+      "storage_and_cleaning": "最终主交付物是家务清洁、衣物收纳和空间整理方法；清洁商品购买、设备故障和专业上门维修不属于本轴。",
+      "digital_home_setup_and_interoperation_without_fault": "最终主交付物是智能家居正常安装、配对、联动和场景设置经验；连接失效、异常提示、错误码和编程实现不属于本轴。",
+      "household_upkeep_without_owned_product_fault": "最终主交付物是家居设施的预防性清洁和日常养护；具体已购商品不能工作、持续异常、维修或售后不属于本轴。"
+    },
+    "LifeKnowledgeQA": {
+      "household_safety": "最终主交付物是解释日常家居危险组合、风险原理和一般安全常识；该安全主动作高于一般材料化学，危急实时处置和专业研究不属于本轴。",
+      "everyday_ingredients": "最终主交付物是解释食品或日用品配料表中的常见成分及一般作用；疾病诊疗、食材挑选和严肃营养研究不属于本轴。",
+      "daily_physics": "最终主交付物是不以具体器具为核心的日常物理现象；家电工作机制归 appliance_principles，材料性质归 materials_and_chemistry。",
+      "materials_and_chemistry": "最终主交付物是日常材料性质、腐蚀和基础化学原理；危险混用安全主请求归 household_safety，器具机制和严肃科研不属于本轴。",
+      "appliance_principles": "最终主交付物是解释家电或生活器具为何以及如何工作；正常使用、故障排查、购买推荐和泛化自然现象不属于本轴。",
+      "nonprofessional_interest_science": "最终主交付物是其它轴未覆盖的轻量兴趣科学；能归入家居安全、配料、日常物理、材料或器具 sibling 轴时不得使用本轴，严肃学术研究归 NoAvailable。"
+    }
+  },
+  "content_axis_priority": {
+    "StockAdvice": [
+      "trading_strategy",
+      "target_recommendation",
+      "position_sizing",
+      "buy_sell_timing",
+      "future_direction"
+    ],
+    "StockOther": [
+      "personal_holdings_and_account",
+      "stable_entity_governance_and_equity",
+      "stable_entity_company_operations",
+      "fund_etf_reit",
+      "bonds_fx_metals"
+    ],
+    "StockQuery": [
+      "announced_event_reaction",
+      "public_market_metrics",
+      "market_index",
+      "historical_kline",
+      "current_price_and_change",
+      "security_profile_and_code",
+      "market_tools_and_brokerage_access"
+    ],
+    "ProductGeneral": [
+      "after_sales_and_order",
+      "authenticity_and_provenance_check",
+      "owned_product_malfunction_and_troubleshooting",
+      "custom_engineering",
+      "rights_or_license",
+      "service_or_software",
+      "vehicle_or_housing"
+    ],
+    "ProductEcommerce": [
+      "retail_purchase_and_order",
+      "retail_price_and_promotion",
+      "boundary_eligible_standardized_goods",
+      "retail_product_search_and_availability",
+      "retail_product_comparison",
+      "retail_brand_or_model_recommendation",
+      "retail_suitability_and_specs"
+    ],
+    "ChitChat": [
+      "user_emotion_sharing",
+      "assistant_identity_and_capability_chat",
+      "user_hobby_or_leisure_sharing",
+      "specific_open_social_topic",
+      "self_contained_appreciation_or_farewell",
+      "current_turn_greeting_or_wakeup"
+    ],
+    "NoAvailable": [
+      "health_diagnosis_prescription_or_emergency",
+      "unsupported_external_execution",
+      "legal_or_academic_request",
+      "programming_or_technical_task",
+      "image_chart_or_media",
+      "writing_or_translation",
+      "weather_or_realtime_status",
+      "insufficient_or_unintelligible_input_without_anaphora"
+    ],
+    "MedicalQuestionAnswer": [
+      "hospital_recommendation",
+      "department_recommendation",
+      "medication_safety",
+      "medical_report_interpretation",
+      "traditional_chinese_medicine",
+      "disease_related_diet",
+      "symptom_self_check"
+    ],
+    "CivicBoundHelper": [
+      "official_charter",
+      "medical_insurance_policy",
+      "social_security_policy",
+      "provident_fund_policy",
+      "tax_policy",
+      "real_estate_policy",
+      "subsidy_policy",
+      "insurance_policy"
+    ],
+    "TicketService": [
+      "ticket_purchase",
+      "availability_for_identified_service",
+      "fare_comparison",
+      "vehicle_or_flight_details",
+      "rail_schedule_search",
+      "flight_schedule_search",
+      "coach_schedule_search"
+    ],
+    "TravelGuide": [
+      "itinerary_planning",
+      "family_trip",
+      "accommodation_area",
+      "local_transport_experience",
+      "holiday_off_peak",
+      "attraction_pitfalls",
+      "photo_location"
+    ],
+    "BeautyFashion": [
+      "personal_image",
+      "sensitive_skin_care",
+      "skin_care_selection",
+      "makeup_steps",
+      "color_and_shade",
+      "body_shape_styling",
+      "outfit_formula"
+    ],
+    "FoodDiscovery": [
+      "fitness_diet",
+      "daily_meal_pairing",
+      "local_snacks",
+      "restaurant_discovery",
+      "recipe_method",
+      "ingredient_selection"
+    ],
+    "LifeExperience": [
+      "parenting_practice",
+      "pet_care",
+      "home_appliance_and_digital_selection_experience",
+      "digital_home_setup_and_interoperation_without_fault",
+      "routine_home_appliance_use_without_fault",
+      "renovation_pitfalls",
+      "storage_and_cleaning",
+      "household_upkeep_without_owned_product_fault"
+    ],
+    "LifeKnowledgeQA": [
+      "household_safety",
+      "appliance_principles",
+      "materials_and_chemistry",
+      "daily_physics",
+      "everyday_ingredients",
+      "nonprofessional_interest_science"
+    ]
+  },
+  "content_axis_allowed_phenomena": {
+    "ChitChat": {
+      "current_turn_greeting_or_wakeup": [
+        "single_turn",
+        "intent_change"
+      ],
+      "self_contained_appreciation_or_farewell": [
+        "single_turn"
+      ]
+    },
+    "NoAvailable": {
+      "insufficient_or_unintelligible_input_without_anaphora": [
+        "single_turn"
+      ]
+    }
+  },
+  "generation_boundary_guidance": "- 所有样本只体现语义目标，不把讯飞晓医、携程、同程、小红书或问一问写成触发词。不得写入姓名、手机号、身份证号、精确住址、订单号、票号、病历号或其它个人标识，即使是虚构号码也不允许。\n- 始终按最后一条 user 的最终主交付物或主请求动作选 content_axis，而不是按话题词、历史铺垫或次要约束。若末轮同时命中多个 sibling 轴，只能选择该候选 content_axis_priority 中位置最高的一个；不得让一个样本同时承载两个当前主交付物。\n- content_axis_allowed_phenomena 是轴级硬约束；列出的轴只能用于所列现象，未出现在映射中的轴默认允许全部现象。ChitChat 的 current_turn_greeting_or_wakeup 只允许 single_turn 或 intent_change，self_contained_appreciation_or_farewell 只能生成 single_turn；NoAvailable 的 insufficient_or_unintelligible_input_without_anaphora 也只能生成 single_turn。\n- 按最后一轮要求的最终交付物判别候选，不得只看主题。代写、翻译、制图、编程、替用户发送消息或其它未支持外部执行，即使主题涉及售后、政策、医疗、票务或旅行，也归 NoAvailable；确诊、处方和急救归 NoAvailable.health_diagnosis_prescription_or_emergency；一般症状分析、药物安全和非紧急就医建议才归 MedicalQuestionAnswer。\n- NoAvailable 内部同样按最终交付物优先：真实外部动作、法律学术成果、程序实现、媒体文件、文字成品分别归其动作轴，不能因主题改投垂类；只有自身乱码、无意义或非指代性泛化求助才能使用 insufficient_or_unintelligible_input_without_anaphora。\n- ProductEcommerce 的 content_axis 按最终交易动作和标准化实物零售资格划分，不按封闭商品类目清单路由；同一动作要跨多种普通商品对象生成，且不能把商品名称本身当作标签证据。\n- boundary_eligible_standardized_goods 只生成现成、量产、规格固定、可直接发货的标准化实物，并用自然购买前问法体现；不得让用户询问“是否属于普通电商标准商品”“该归哪类”或“是否在能力边界内”。按尺寸制作或需要上门测量、设计、生产、安装的窗帘、柜体等定制工程归 ProductGeneral.custom_engineering，只能作为近邻对照或历史来源，绝不能成为本轴的 ProductEcommerce 目标。\n- 专属垂类优先处理经验内容：BeautyFashion 承接护肤彩妆服饰的肤质、妆效、风格、合身和经验型选品，FoodDiscovery 承接食品食材与包装食品的口味、配料、营养、品质和经验型选品；即使出现具体品牌或 SKU，这些内容判断仍归对应专属垂类。只有最终主动作是明确平台或商品 SKU 的搜索/库存、价格优惠或下单，才回到 ProductEcommerce。LifeExperience 只承接不绑定具体品牌型号的家电数码类别选择、功能取舍与避坑；具体品牌型号推荐、比较和规格适用性归 ProductEcommerce。\n- LifeExperience 可以生成不绑定具体品牌、型号、SKU、平台、价格、优惠、库存或下单的家电数码类别选择、功能取舍、场景适配、避坑、正常安装设置、使用和养护；一旦要求具体品牌型号或平台交易就归 ProductEcommerce。已购商品出现持续异常、错误码、功能失效、维修或售后时归 ProductGeneral。\n- ProductGeneral 的 authenticity_and_provenance_check 只处理已识别、已购或已收商品的真伪、来源和核验路径，不能补造鉴定结论；若最终主动作是退款、退货、投诉或其它售后办理，按更高 priority 归 after_sales_and_order。购买前的平台搜索选择归 ProductEcommerce，法律鉴定和文书交付归 NoAvailable。\n- CivicBoundHelper 必须位于保险、补贴、不动产、公积金、社保、税务或医保政务域。single_turn 以及从其它意图切换进入 CivicBoundHelper 时，最后一条 user 必须显式出现“政策”“发文”或“章程”至少一个正式文件词。连续围绕同一 Civic 目标的其它多轮样本中，若此前 user 已显式出现该词、期间没有意图切换且末轮指代唯一可恢复，则末轮可以不重复。仅 assistant 出现不构成锚点；official_charter 必须真正询问官方章程，不能用普通政策发文替代。\n- TicketService 按最终票务动作区分：搜索未确定的模式班次用 rail/flight/coach_schedule_search；比较两个以上票价用 fare_comparison；查询唯一服务余票用 availability_for_identified_service；查询唯一服务载具设施用 vehicle_or_flight_details；购买动作一律用 ticket_purchase。晚点、签证和酒店实时预订不属于 TicketService。\n- TravelGuide 与 FoodDiscovery 同时可能出现目的地餐饮时，完整行程归 itinerary_planning，独立餐厅归 restaurant_discovery，明确地区特色小吃归 local_snacks；其它多轴情况严格服从各候选 priority。\n- StockQuery 包含已存在的股票/证券公开行情事实、公开股东结构、行情软件和券商开户服务；公开股东名单、持股比例与股东人数事实归 security_profile_and_code，行情工具与开户归 market_tools_and_brokerage_access。公司治理影响、经营研究、个人既有持仓账户、基金及其它金融资产归 StockOther；股票未来预测和买卖建议归 StockAdvice。\n- StockOther 的公司经营和治理样本必须保持公司主体、上市市场、时期和业务范围一致。用户可以显式修正一个条件，assistant 只能更新被修正字段；不得靠虚构同名主体、切换市场、改变主营业务或补造事实制造澄清。\n- assistant 只能以 AI 助手身份互动，不得声称拥有身体、住所、亲友、职业、私人物品或真实购买、使用、旅行、育儿、养宠、患病、品尝和感官经历。\n- assistant 不得补写 user 未提供且没有所给来源支持的外部事实。尤其不得断言具体餐厅设施菜单、商品型号属性、设备错误码和部件故障、历史行情、实时票务余票班次时长、政策条款执行口径、旅行景点运营状态，也不得补造公司、证券代码、价格、库存、检查结论、交易、收购或外部操作结果。可以追问、复述 user 已给信息、说明需要来源，或给出不增加外部事实的概括性回应。\n- single_turn 必须仅凭唯一 user 消息知道当前动作与对象，不得承接不存在历史。多轮第一条 user 也不得假装 assistant 已听过或回答过更早内容；整段会话时间关系必须自洽，刚刚连续交互后不得说“好久不见”，也不得无说明改变日期和事件顺序。\n- insufficient_or_unintelligible_input_without_anaphora 只生成乱码、无意义，或“帮帮我”“有件事想问”这类不含指代、仍无法识别动作与对象的单轮输入；绝不使用“那个”“刚才”“继续”“这趟”“上面的”等缺失先行词。动作明确但只缺参数时归实际轴。\n- contrast_candidate 必须与目标在对象、动作或交付物上形成自然近邻语义重叠，但最终目标唯一且目标候选明显优先。不得硬塞体检、政策、旅行、供应商名、无关场所、突兀类比或第二个任务。\n- 以下 content_axis_priority 均为严格的高到低唯一选择顺序：\n- content_axis_priority.StockAdvice（高→低）：trading_strategy > target_recommendation > position_sizing > buy_sell_timing > future_direction\n- content_axis_priority.StockOther（高→低）：personal_holdings_and_account > stable_entity_governance_and_equity > stable_entity_company_operations > fund_etf_reit > bonds_fx_metals\n- content_axis_priority.StockQuery（高→低）：announced_event_reaction > public_market_metrics > market_index > historical_kline > current_price_and_change > security_profile_and_code > market_tools_and_brokerage_access\n- content_axis_priority.ProductGeneral（高→低）：after_sales_and_order > authenticity_and_provenance_check > owned_product_malfunction_and_troubleshooting > custom_engineering > rights_or_license > service_or_software > vehicle_or_housing\n- content_axis_priority.ProductEcommerce（高→低）：retail_purchase_and_order > retail_price_and_promotion > boundary_eligible_standardized_goods > retail_product_search_and_availability > retail_product_comparison > retail_brand_or_model_recommendation > retail_suitability_and_specs\n- content_axis_priority.ChitChat（高→低）：user_emotion_sharing > assistant_identity_and_capability_chat > user_hobby_or_leisure_sharing > specific_open_social_topic > self_contained_appreciation_or_farewell > current_turn_greeting_or_wakeup\n- content_axis_priority.NoAvailable（高→低）：health_diagnosis_prescription_or_emergency > unsupported_external_execution > legal_or_academic_request > programming_or_technical_task > image_chart_or_media > writing_or_translation > weather_or_realtime_status > insufficient_or_unintelligible_input_without_anaphora\n- content_axis_priority.MedicalQuestionAnswer（高→低）：hospital_recommendation > department_recommendation > medication_safety > medical_report_interpretation > traditional_chinese_medicine > disease_related_diet > symptom_self_check\n- content_axis_priority.CivicBoundHelper（高→低）：official_charter > medical_insurance_policy > social_security_policy > provident_fund_policy > tax_policy > real_estate_policy > subsidy_policy > insurance_policy\n- content_axis_priority.TicketService（高→低）：ticket_purchase > availability_for_identified_service > fare_comparison > vehicle_or_flight_details > rail_schedule_search > flight_schedule_search > coach_schedule_search\n- content_axis_priority.TravelGuide（高→低）：itinerary_planning > family_trip > accommodation_area > local_transport_experience > holiday_off_peak > attraction_pitfalls > photo_location\n- content_axis_priority.BeautyFashion（高→低）：personal_image > sensitive_skin_care > skin_care_selection > makeup_steps > color_and_shade > body_shape_styling > outfit_formula\n- content_axis_priority.FoodDiscovery（高→低）：fitness_diet > daily_meal_pairing > local_snacks > restaurant_discovery > recipe_method > ingredient_selection\n- content_axis_priority.LifeExperience（高→低）：parenting_practice > pet_care > home_appliance_and_digital_selection_experience > digital_home_setup_and_interoperation_without_fault > routine_home_appliance_use_without_fault > renovation_pitfalls > storage_and_cleaning > household_upkeep_without_owned_product_fault\n- content_axis_priority.LifeKnowledgeQA（高→低）：household_safety > appliance_principles > materials_and_chemistry > daily_physics > everyday_ingredients > nonprofessional_interest_science\n- 以下 content_axis_allowed_phenomena 为显式限制；未列轴默认允许全部现象：\n- content_axis_allowed_phenomena.ChitChat.current_turn_greeting_or_wakeup：仅允许 single_turn 或 intent_change\n- content_axis_allowed_phenomena.ChitChat.self_contained_appreciation_or_farewell：仅允许 single_turn\n- content_axis_allowed_phenomena.NoAvailable.insufficient_or_unintelligible_input_without_anaphora：仅允许 single_turn\n- 以下 content_axis 定义及 sibling 排除边界是硬约束，必须由最后一条 user 的主交付物真实落实：\n- StockAdvice.future_direction：最终主请求只是判断已给股票、指数或板块未来涨跌与走势；若同时要求推荐标的、买卖动作、仓位或完整方案，按 priority 选择更高轴。\n- StockAdvice.target_recommendation：最终主交付物是筛选或推荐值得关注、建仓的股票标的；既定标的的时点、仓位和单纯方向判断不属于本轴。\n- StockAdvice.buy_sell_timing：最终主交付物是既定标的何时买入、卖出、加仓或减仓；明确要求投入比例时归 position_sizing，要求多环节规则时归 trading_strategy。\n- StockAdvice.position_sizing：最终主交付物是总仓位、单标的占比、投入金额或分批数量；不以未来方向或止损成本基准充当仓位问题，完整策略优先。\n- StockAdvice.trading_strategy：最终主交付物是同时包含入场、退出、止盈止损或风险纪律的完整交易规则；单一预测、标的、时点或仓位请求归对应 sibling 轴。\n- StockOther.stable_entity_company_operations：最终主请求是分析同一明确公司主体的经营、财务、主营业务或业绩原因；纯检索公开股东结构和行情事实归 StockQuery，治理影响归 governance 轴，且不得切换实体、市场或业务。\n- StockOther.stable_entity_governance_and_equity：最终主请求是解释同一公司控制权、质押、股权变动、董事会或治理影响；只查询已披露股东名单、持股比例或股东人数归 StockQuery.security_profile_and_code，经营分析归 operations 轴。\n- StockOther.fund_etf_reit：最终主请求是基金、ETF 或 REIT 的产品研究、比较、选择、历史表现、计算或交易事务；个股事实归 StockQuery，股票买卖建议归 StockAdvice，跨实物贵金属比较归 bonds_fx_metals。\n- StockOther.bonds_fx_metals：最终主请求是债券、汇率、外汇、黄金或贵金属的行情、知识、比较、选择或交易；只研究基金产品本身归 fund_etf_reit，股票任务不属于本轴。\n- StockOther.personal_holdings_and_account：最终主请求是用户既有持仓、交易计划、成交记录、账户状态或账户内占比盈亏计算；券商选择和开户服务归 StockQuery.market_tools_and_brokerage_access，股票未来买卖建议归 StockAdvice。\n- StockQuery.current_price_and_change：最终主交付物是个股或证券当前、最新或当日价格与涨跌；指数对象归 market_index，历史区间归 historical_kline，公告后反应归 announced_event_reaction。\n- StockQuery.historical_kline：最终主交付物是个股或证券已经发生的历史 K 线、价格、成交量或区间走势；指数历史归 market_index，事件窗口反应归 announced_event_reaction，未来判断归 StockAdvice。\n- StockQuery.market_index：最终主交付物是大盘或行业指数的当前/历史点位、涨跌、成交或组成事实；个股查询归其它 StockQuery 轴，政策原文解读不属于本轴。\n- StockQuery.security_profile_and_code：最终主交付物是证券代码、上市市场、行业、基础档案，或已公开披露的股东名单、持股比例、股东人数与结构事实；控制权和治理影响分析归 StockOther，估值行情指标归 public_market_metrics。\n- StockQuery.announced_event_reaction：最终主交付物是已公布事件发生后已经出现的价格、成交、资金或同板块市场反应；公司经营内容归 StockOther，未来影响预测归 StockAdvice。\n- StockQuery.public_market_metrics：最终主交付物是个股证券的市盈率、市净率、股息率、换手率、振幅等公开行情指标；简单价格/K线、指数、公开股东结构和私人账户分别归对应 sibling 轴。\n- StockQuery.market_tools_and_brokerage_access：最终主交付物是行情软件功能与数据入口、券商选择、开户流程、交易通道或相关服务事实；不含个人既有持仓账户、公司治理研究、软件编程或软件故障售后。\n- ProductGeneral.vehicle_or_housing：最终主交付物是汽车、房屋等非普通电商对象的购买前选择、价格适用性或正常使用信息；故障根因归 owned_product_malfunction，售后办理归 after_sales_and_order，定制工程归 custom_engineering。\n- ProductGeneral.service_or_software：最终主交付物是非实体服务或软件的选择、授权、功能、使用和技术异常咨询；退款续费办理归 after_sales_and_order，版权许可归 rights_or_license，代写代码归 NoAvailable。\n- ProductGeneral.rights_or_license：最终主交付物是会员、电子版权、许可或其它非交通票务权益的范围、取得、有效性与转让；订单售后流程优先归 after_sales_and_order，软件使用归 service_or_software。\n- ProductGeneral.custom_engineering：最终主交付物是全屋定制、装修工程或定制制造的质量、验收、责任与质保认定；具体售后办理优先归 after_sales_and_order，普通商品故障归 owned_product_malfunction，日常装修经验归 LifeExperience。\n- ProductGeneral.owned_product_malfunction_and_troubleshooting：最终主交付物是定位一件已购标准化实体商品或车辆设备的异常、失效、错误码或故障根因并排查；定制工程质量归 custom_engineering，退换维修流程归 after_sales_and_order，正常使用与购买推荐归对应垂类。\n- ProductGeneral.authenticity_and_provenance_check：最终主交付物是核验一件已识别、已购或已收标准化商品的真伪、来源或可验证凭据，并说明不补造鉴定结论的核验路径；若主动作是退款、退货、投诉或其它售后办理，按更高 priority 归 after_sales_and_order，购买前的平台搜索选择归 ProductEcommerce，法律鉴定或文书交付归 NoAvailable。\n- ProductGeneral.after_sales_and_order：最终主交付物是订单、物流、退款、退换、质保、维修受理、所需凭证或售后渠道流程；该流程优先于商品、软件、权益和车辆对象轴，但代写或发送工单归 NoAvailable。\n- ProductEcommerce.retail_product_search_and_availability：最终主交付物是在普通零售平台检索一件标准化实物商品，或查询其是否上架、可搜到和有无库存；若主要询问价格优惠、推荐选择、已识别商品比较、规格适用性或直接购买，按 priority 使用对应轴。美妆服饰和包装食品的纯平台搜索与库存同样属于本轴。\n- ProductEcommerce.retail_brand_or_model_recommendation：最终主交付物是从尚未确定的普通零售商品集合中推荐具体品牌、型号或 SKU；明确比较两个以上已识别商品归 retail_product_comparison，单品规格判断归 retail_suitability_and_specs，价格优惠与下单按更高 priority 轴。护肤彩妆服饰的肤质、妆效、风格或合身选品，以及食品食材的口味、配料、营养或品质选品，即使出现具体品牌或 SKU 也归 BeautyFashion 或 FoodDiscovery；只有明确平台/SKU 搜索库存、价格优惠或下单才转入 ProductEcommerce。不绑定具体品牌型号的家电数码选用经验归 LifeExperience，具体品牌型号推荐归本轴。\n- ProductEcommerce.retail_price_and_promotion：最终主交付物是查询已识别标准化实物商品的价格、优惠、券或促销信息；预算只是推荐约束时仍归 retail_brand_or_model_recommendation，两个商品的非价格属性比较归 retail_product_comparison，明确下单按更高 priority 归 retail_purchase_and_order。美妆服饰和包装食品的纯平台价格优惠也属于本轴。\n- ProductEcommerce.retail_product_comparison：最终主交付物是比较两个以上已经明确的普通零售商品、品牌型号或 SKU 的非价格属性并作取舍；从开放集合推荐归 retail_brand_or_model_recommendation，单个商品判断归 retail_suitability_and_specs，价格优惠和下单按更高 priority 轴。护肤彩妆服饰的肤质、妆效、风格、合身属性比较，以及食品食材或包装食品的口味、配料、营养、品质属性比较，即使对象是具体品牌或 SKU 也归 BeautyFashion 或 FoodDiscovery；明确平台/SKU 搜索库存、价格优惠或下单除外。具体家电数码型号间比较归本轴。\n- ProductEcommerce.retail_suitability_and_specs：最终主交付物是查询或判断一个已识别标准化实物商品的规格、性能或对明确使用场景的适用性；开放式品牌型号推荐和多商品比较归对应 sibling 轴。护肤彩妆服饰基于肤质、妆效、风格或合身性的适配判断，以及食品食材或包装食品的口味、配料、营养和品质判断，即使对象是具体品牌或 SKU 也归 BeautyFashion 或 FoodDiscovery；明确平台/SKU 搜索库存、价格优惠或下单除外。泛化家电数码选用经验归 LifeExperience，具体型号的规格适用性归本轴。\n- ProductEcommerce.retail_purchase_and_order：最终主交付物是购买、加入购物车、预订或下单一件普通零售平台可提供的标准化实物商品；该实际交易动作高于搜索库存、推荐、价格、比较和适用性，汽车房屋、服务软件、版权许可、定制工程及交通票务不属于本轴。美妆服饰和包装食品的纯平台下单属于本轴。\n- ProductEcommerce.boundary_eligible_standardized_goods：最终对象必须是现成、量产、规格固定且可直接发货的标准化实物，并以自然的购买前可购性、推荐或适用性请求体现其靠近非普通消费对象的边界；不得询问“是否属于普通电商标准商品”“该归哪类”“是否在能力边界内”等元分类问题。按尺寸制作或需要上门测量、设计、生产、安装的窗帘、柜体等定制工程，以及汽车房屋等登记资产、服务软件、会员版权等权利许可，均不得作为本轴的 ProductEcommerce 正例。\n- ChitChat.current_turn_greeting_or_wakeup：最后一条 user 的主动作只是问候、招呼或唤醒；若同句还有情绪、身份、兴趣或具体聊天问题，按 priority 使用更高轴。\n- ChitChat.self_contained_appreciation_or_farewell：最后一条 user 的主动作是无需缺失历史即可成立的感谢、结束或告别；若同时表达需回应的情绪或问题，按 priority 使用更高轴。\n- ChitChat.user_emotion_sharing：最终主请求是表达用户自己的情绪并寻求陪伴、共情或倾听；医疗处置、垂类建议和明确内容交付不属于本轴。\n- ChitChat.assistant_identity_and_capability_chat：最终主请求是聊天式询问 AI 的身份、能力、意识或交互方式；执行未支持任务和虚构助手个人生活不属于本轴。\n- ChitChat.specific_open_social_topic：最终主请求是围绕一个明确日常或思辨话题交换看法；事实知识问答、内容交付、情绪安抚和详细兴趣指导不属于本轴。\n- ChitChat.user_hobby_or_leisure_sharing：最终主请求是分享用户自己的兴趣、进展或体验并寻求社交回应；若要求配方、养护、技术方案或商品推荐，归相应垂类而非本轴。\n- NoAvailable.writing_or_translation：最终主交付物是创作、改写、润色或翻译文本，因此即使主题属于其它垂类也优先按本轴；法律学术文书、程序代码和真实外发动作按 priority 使用更高轴。\n- NoAvailable.image_chart_or_media：最终主交付物是生成、编辑或导出图片、图表、音频、视频等媒体，因此主题垂类不能覆盖该动作；程序实现、真实外部执行和更高 priority 轴优先。\n- NoAvailable.programming_or_technical_task：最终主交付物是编写、修改、调试代码或完成具体技术实现；不因代码主题改投垂类，真实外部执行及更高 priority 轴优先。\n- NoAvailable.weather_or_realtime_status：最终主交付物是当前或未来天气、交通、晚点等未支持动态状态；受支持的股票行情和交通票查询不属于本轴，媒体/代码/外部执行等明确交付物按 priority 决定。\n- NoAvailable.legal_or_academic_request：最终主交付物是法律文书或法律意见、论文级研究、严肃学术任务或专业考试答案；政务政策信息和轻量生活科普不属于本轴，健康危急任务优先。\n- NoAvailable.unsupported_external_execution：最终主交付物是发送消息、代办、挂号缴费、买药、订房等未支持的真实外部动作；明确支持的普通商品下单和交通票购买除外，健康急救/确诊/处方按更高轴。\n- NoAvailable.health_diagnosis_prescription_or_emergency：最终主请求是要求确定疾病诊断、开具或调整处方，或对危急重症进行实时急救处置；一般症状分析、药物安全和非紧急就医建议归 MedicalQuestionAnswer。\n- NoAvailable.insufficient_or_unintelligible_input_without_anaphora：输入自身是乱码、无意义，或仅含不带指代的泛化求助而无法识别动作/对象；不得用“那个”“刚才”“继续”“这趟”等缺失先行词制造不足，动作明确但只缺参数时归实际轴。\n- MedicalQuestionAnswer.symptom_self_check：最终主交付物是对个人症状的常见可能性、风险和一般处置方向分析；确定诊断、处方和急救归 NoAvailable.health_diagnosis_prescription_or_emergency，科室医院等更具体动作按 priority 优先。\n- MedicalQuestionAnswer.medication_safety：最终主交付物是药物用途、用法注意、相互作用、禁忌或不良反应信息；要求开药、停换药决定或处方归 NoAvailable，普通疾病饮食和症状分析归对应 sibling 轴。\n- MedicalQuestionAnswer.traditional_chinese_medicine：最终主交付物是中医角度的一般辨证、生活和饮食调理信息；确定诊断或中药处方归 NoAvailable，非中医症状分析归 symptom_self_check。\n- MedicalQuestionAnswer.medical_report_interpretation：最终主交付物是解释个人体检、化验或检查报告指标与一般风险；确定诊断归 NoAvailable，基于已知疾病的饮食请求归 disease_related_diet。\n- MedicalQuestionAnswer.hospital_recommendation：最终主交付物是按症状、位置或就医需求选择医院或医院类型；该动作高于科室和症状分析，但实时挂号、缴费和急救执行不属于本轴。\n- MedicalQuestionAnswer.department_recommendation：最终主交付物是根据症状选择首诊科室；若同时要求具体医院按 priority 归 hospital_recommendation，确诊和挂号执行不属于本轴。\n- MedicalQuestionAnswer.disease_related_diet：最终主交付物是围绕已知疾病、症状风险或康复的饮食建议；普通减脂增肌、日常配餐和菜谱归 FoodDiscovery，处方级营养治疗不属于本轴。\n- CivicBoundHelper.insurance_policy：最终主请求是解读保险制度或大病保险等非基本医保待遇的政策、发文或章程；基本医保、社保其它险种和商业投保推荐不属于本轴。\n- CivicBoundHelper.subsidy_policy：最终主请求是解读政府补贴资格、标准、申请或资金流程；税收扣除、公积金、普通商品优惠和官方组织章程不属于本轴。\n- CivicBoundHelper.real_estate_policy：最终主请求是解读住房交易、产权、租赁或不动产管理政策；公积金、税务计算、补贴和装修经验归对应 sibling 类。\n- CivicBoundHelper.provident_fund_policy：最终主请求是解读公积金缴存、提取、贷款或账户政策；普通住房政策、税务、社保和商业贷款建议不属于本轴。\n- CivicBoundHelper.social_security_policy：最终主请求是解读养老、失业、工伤、生育等社保政策；基本医保待遇、税务和个人证券账户不属于本轴。\n- CivicBoundHelper.tax_policy：最终主请求是解读个税、契税及其它税收政策、扣除和申报规则；补贴、公积金、住房管理和法律文书代写归对应轴。\n- CivicBoundHelper.medical_insurance_policy：最终主请求是解读基本医保参保、报销、起付线、限额和待遇政策；个人疾病咨询、商业保险和挂号缴费不属于本轴。\n- CivicBoundHelper.official_charter：最终主交付物是解读政务或官方组织章程中的组织、权限和程序；必须有“章程”语义，并按 priority 高于同领域普通政策，不能用一般发文、公司章程或补贴流程充当。\n- TicketService.rail_schedule_search：最终主交付物是按路线、日期和时段搜索或列出火车/高铁可选车次；若主要比较价格、查询唯一车次余票/设施或直接购买，按 priority 使用对应更高轴。\n- TicketService.flight_schedule_search：最终主交付物是按路线、日期和时段搜索或列出可选航班；若主要比较价格、查询唯一航班余票/机型或直接购买，按 priority 使用对应更高轴。\n- TicketService.coach_schedule_search：最终主交付物是按路线、日期和时段搜索或列出长途汽车班次；若主要比较价格、查询唯一班次余票或直接购买，按 priority 使用对应更高轴。\n- TicketService.fare_comparison：最终主交付物是比较两个以上可选车次、航班、班次或日期的票价，或找最低价方案；单一已识别服务的余票归 availability，列时刻表归模式 schedule 轴，购买优先。\n- TicketService.availability_for_identified_service：最终主交付物是查询一个由日期与车次/航班号等信息唯一确定的交通服务是否有票及座席余量；未唯一识别的“这趟”无效，多方案搜索归 schedule，购买优先。\n- TicketService.vehicle_or_flight_details：最终主交付物是查询一个已唯一识别服务的车型、机型、舱厢或设施；若主要问余票、比价或购买，按 priority 使用对应轴，缺失车次/航班先行项不得生成。\n- TicketService.ticket_purchase：最终主交付物是购买、预订或下单火车、汽车或飞机票；购买动作高于时刻、比价、余票和载具详情，酒店预订及其它代办不属于本轴。\n- TravelGuide.itinerary_planning：最终主交付物是目的地内多日或多点的完整行程顺序与节奏；即使包含亲子、住宿、交通、错峰或拍照约束，完整排程仍按最高 priority 归本轴。\n- TravelGuide.attraction_pitfalls：最终主交付物是景点体验、排队与避坑经验；完整行程、亲子适配、住宿交通等更高 priority 主动作优先，且不得让 assistant 断言无来源实时运营事实。\n- TravelGuide.accommodation_area：最终主交付物是选择住宿区域或街区；完整行程和亲子路线优先，实时酒店价格、余房和预订执行不属于本轴。\n- TravelGuide.photo_location：最终主交付物是旅行拍照位置、角度或经验时段；只要主请求是完整行程、家庭适配、住宿交通、错峰或避坑，按 priority 使用更高轴。\n- TravelGuide.family_trip：最终主交付物是老人或儿童的景点适配、体力节奏和亲子旅行经验；若要求完整多日排程归 itinerary_planning，医疗诊疗和普通育儿不属于本轴。\n- TravelGuide.holiday_off_peak：最终主交付物是节假日错峰和避开人流的经验性时段安排；完整行程、家庭适配、住宿交通等更高 priority 请求优先，不含实时客流。\n- TravelGuide.local_transport_experience：最终主交付物是目的地内地铁、公交、打车等组合与移动经验；完整行程、家庭适配和住宿区域优先，城际票务及实时班次不属于本轴。\n- BeautyFashion.skin_care_selection：最终主交付物是按一般肤质和目标选择日常护肤品类型、成分或顺序；敏感泛红护理按更高 priority 归 sensitive_skin_care，皮肤病诊断用药和平台优惠不属于本轴。\n- BeautyFashion.makeup_steps：最终主交付物是底妆、眼妆等化妆步骤、顺序和手法；整体形象规划优先，单纯色号归 color_and_shade，护肤治疗不属于本轴。\n- BeautyFashion.color_and_shade：最终主交付物是按肤色和风格选择口红、粉底等颜色或色号方向；整体形象、完整化妆步骤按 priority 优先，穿搭和平台下单不属于本轴。\n- BeautyFashion.outfit_formula：最终主交付物是服装单品间的比例、层次和配色公式；若主要依据身材修饰归更高 priority 的 body_shape_styling，整体形象和商品库存不属于本轴。\n- BeautyFashion.body_shape_styling：最终主交付物是针对身材特点提供显高、显瘦或比例修饰经验；整体形象优先，非身材导向的单品公式归 outfit_formula，疾病减重不属于本轴。\n- BeautyFashion.sensitive_skin_care：最终主交付物是非疾病性的敏感、泛红或刺激期温和护理；该轴高于一般 skin_care_selection，皮肤病确诊和药物处理归医疗/NoAvailable 边界。\n- BeautyFashion.personal_image：最终主交付物是综合脸型、发型、妆容与穿搭规划整体个人形象；该整合任务高于单一护肤、妆容、色号和穿搭 sibling 轴，医美治疗不属于本轴。\n- FoodDiscovery.restaurant_discovery：最终主交付物是按地点、菜系、环境和用餐需求发现餐厅或探店避雷；明确地区特色小吃按更高 priority 归 local_snacks，实时订座和整体旅行不属于本轴。\n- FoodDiscovery.recipe_method：最终主交付物是一道菜或食品的烹饪步骤、火候和做法；健身饮食、整套餐次、地区小吃发现和餐厅选择按 priority 优先，单纯挑食材归 ingredient_selection。\n- FoodDiscovery.ingredient_selection：最终主交付物是食材新鲜度、品质和适用做法的挑选经验；若主要要求成菜步骤归 recipe_method，平台优惠、成分原理和疾病饮食不属于本轴。\n- FoodDiscovery.fitness_diet：最终主交付物是围绕一般减脂、增肌或运动目标的饮食安排；该目标高于普通每日配餐，糖尿病等疾病饮食归 MedicalQuestionAnswer。\n- FoodDiscovery.local_snacks：最终主交付物是发现、比较或了解具有明确地区属性的特色小吃与当地吃法；该地域对象高于一般餐厅发现，不得用无地域的锅气、普通菜谱或食品科学充当。\n- FoodDiscovery.daily_meal_pairing：最终主交付物是普通早餐、午晚餐、一日或一周的多餐搭配；健身目标优先，单道菜步骤、疾病营养和实时外卖不属于本轴。\n- LifeExperience.renovation_pitfalls：最终主交付物是装修流程、材料衔接和施工避坑经验；已完工定制工程缺陷、法律纠纷和商品下单不属于本轴。\n- LifeExperience.home_appliance_and_digital_selection_experience：最终主交付物是不绑定具体品牌、型号、SKU、平台、价格、优惠、库存或下单的家电、数码及智能家居类别选择、功能参数取舍、场景适配和生活化避坑经验；具体品牌型号推荐或平台交易归 ProductEcommerce，已购设备异常、失效和错误码归 ProductGeneral。\n- LifeExperience.routine_home_appliance_use_without_fault：最终主交付物是家电正常状态下的设置、节能和日常使用经验；异常、失效、错误码、维修和型号购买比较不属于本轴。\n- LifeExperience.pet_care：最终主交付物是健康宠物的喂养、清洁、梳理和日常训练经验；宠物疾病诊疗、药物和用品实时下单不属于本轴。\n- LifeExperience.parenting_practice：最终主交付物是育儿睡眠、喂养、行为和日常带娃经验；儿童疾病诊断、处方和商品价格推荐不属于本轴。\n- LifeExperience.storage_and_cleaning：最终主交付物是家务清洁、衣物收纳和空间整理方法；清洁商品购买、设备故障和专业上门维修不属于本轴。\n- LifeExperience.digital_home_setup_and_interoperation_without_fault：最终主交付物是智能家居正常安装、配对、联动和场景设置经验；连接失效、异常提示、错误码和编程实现不属于本轴。\n- LifeExperience.household_upkeep_without_owned_product_fault：最终主交付物是家居设施的预防性清洁和日常养护；具体已购商品不能工作、持续异常、维修或售后不属于本轴。\n- LifeKnowledgeQA.household_safety：最终主交付物是解释日常家居危险组合、风险原理和一般安全常识；该安全主动作高于一般材料化学，危急实时处置和专业研究不属于本轴。\n- LifeKnowledgeQA.everyday_ingredients：最终主交付物是解释食品或日用品配料表中的常见成分及一般作用；疾病诊疗、食材挑选和严肃营养研究不属于本轴。\n- LifeKnowledgeQA.daily_physics：最终主交付物是不以具体器具为核心的日常物理现象；家电工作机制归 appliance_principles，材料性质归 materials_and_chemistry。\n- LifeKnowledgeQA.materials_and_chemistry：最终主交付物是日常材料性质、腐蚀和基础化学原理；危险混用安全主请求归 household_safety，器具机制和严肃科研不属于本轴。\n- LifeKnowledgeQA.appliance_principles：最终主交付物是解释家电或生活器具为何以及如何工作；正常使用、故障排查、购买推荐和泛化自然现象不属于本轴。\n- LifeKnowledgeQA.nonprofessional_interest_science：最终主交付物是其它轴未覆盖的轻量兴趣科学；能归入家居安全、配料、日常物理、材料或器具 sibling 轴时不得使用本轴，严肃学术研究归 NoAvailable。",
+  "generator_model": "Deepseek-V4-Flash-0731",
+  "labeler_model": "GLM-5.2",
+  "reviewer_model": "Qwen3.7-Plus",
+  "plan_auditor_model": "Qwen3.7-Plus",
+  "generator_temperature": 0.9,
+  "judge_temperature": 0,
+  "generation_batch_size": 1,
+  "judgment_batch_size": 4,
+  "max_workers": 2,
+  "max_sample_attempts": 12,
+  "request_attempts": 4,
+  "abort_round_on_api_failure": true,
+  "request_timeout_seconds": 300,
+  "generation_max_tokens": 9000,
+  "judgment_max_tokens": 10000
+}

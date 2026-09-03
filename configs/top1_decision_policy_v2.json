@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "routing_mode": "candidate_name_top1",
+  "decision_rule": "selected_route_threshold_v1",
+  "backend_labels": [
+    "StockQuery",
+    "Ecommerce",
+    "讯飞晓医",
+    "CivicBoundHelper",
+    "携程/同程",
+    "小红书问一问",
+    "NoAvailable"
+  ],
+  "fallback_backend_label": "NoAvailable",
+  "candidate_to_backend": {
+    "StockAdvice": "NoAvailable",
+    "StockOther": "NoAvailable",
+    "StockQuery": "StockQuery",
+    "ProductGeneral": "NoAvailable",
+    "ProductEcommerce": "Ecommerce",
+    "ChitChat": "NoAvailable",
+    "NoAvailable": "NoAvailable",
+    "MedicalQuestionAnswer": "讯飞晓医",
+    "CivicBoundHelper": "CivicBoundHelper",
+    "TicketService": "携程/同程",
+    "TravelGuide": "小红书问一问",
+    "BeautyFashion": "小红书问一问",
+    "FoodDiscovery": "小红书问一问",
+    "LifeExperience": "小红书问一问",
+    "LifeKnowledgeQA": "小红书问一问"
+  }
+}
